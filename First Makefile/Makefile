@@ -1,14 +1,15 @@
-CC=g++
-EXE=GCI_Name.o
-object=GCI_Name.cpp
+CC = g++
 
-main: $(EXE)S
+exe = GCI_Name.o
+object = GCI_Name.cpp
+
+main: $(exe)S
 	@$(CC)  $< -o $@
 	@./main
-EXE: $(object)
+exe: $(object)
 	$(CC)  $< -o $@
 	
-.PHONY: clean main EXE
+.PHONY: clean main exe
 clean:
-	@Secho "clean....."
+	@Secho "Clean..."
 	-rm *.o main
