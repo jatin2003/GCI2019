@@ -1,18 +1,24 @@
-# Python Script to check who is on your WiFI
+# WiFi Scanner
 
 import subprocess
 
-results = subprocess.check_output(["netsh", "wlan", "show", "network"])
-results = results.decode("ascii")
-results = results.replace("\r","")
-ls = results.split("\n")
-ls = ls[4:]
-ssids = []
+def get_devices():
+    result = str(subprocess.check_output(["arp", "-a"]))
 
-n = 0
+    devices = set()
+    for word in result.split():
+        if ":" in word:
+            devices.add(word)
+            
+    return devices
 
-while n < len(ls):
-    if n % 5 == 0:
-        ssids.append(ls[n])
-    n += 1
-print(ssids)
+def main():
+    """Main function"""
+    print("Finding devices...")
+
+    devices = get_devices()
+
+    print(f"There are {len(devices)} devices on your current network.")
+
+if __name__ == "__main__":
+    main()
